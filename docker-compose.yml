@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  api:
+    build: ./docker
+    restart: always
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    external_links:
+      - db
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    restart: always
+    environment:
+      - MH_STORAGE=maildir
+      - MH_MAILDIR_PATH=maildir
+    volumes:
+      - ./mailhog:/home/mailhog
